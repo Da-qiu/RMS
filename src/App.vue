@@ -1,39 +1,46 @@
 <template>
-  <div id="app" class="container">
-    <h1>用户管理系统</h1>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
+  <div id="app">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">用户管理系统</a>
+        <ul class="nav navbar-nav">
+          <li @click="addActive($event)" class="active">
+            <router-link to="/home">主页</router-link>
+          </li>
+          <li @click="addActive($event)">
+            <router-link to="/about">关于我们</router-link>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li @click="addActive($event)">
+            <router-link to="adduser">添加用户</router-link>
+          </li>
+        </ul>
+      </div> 
+    </nav>
+    <router-view class="content-wrapper"></router-view>   
   </div>
 </template>
+<script>
+  export default {
+    name: 'app',
+    data () {
+      return {}
+    },
+    methods: {
+      addActive(e) {
+        var lis = document.querySelectorAll('.container ul li');
+        for (var i=0; i < lis.length; i++) {
+          lis[i].classList.remove('active');
+        }
+        e.target.parentElement.classList.add('active');
+      }
+    }
+  }
+</script>
 
 <style lang="less">
-
+#app{
+  
+}
 </style>

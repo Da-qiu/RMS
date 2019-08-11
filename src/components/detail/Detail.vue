@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <div id="detail">
     <h2>detail组件</h2>
   </div>
 </template>
@@ -9,3 +9,8 @@ export default {
   name: 'detail'
 }
 </script>
+<style lang="less" scoped>
+#detail {
+    margin-top: 50px;
+}
+</style>

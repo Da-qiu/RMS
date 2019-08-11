@@ -1,17 +1,17 @@
 <template>
-  <div id="addUser">
-    <h2>addUser组件</h2>
+  <div id="about">
+    <h2>about组件</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'addUser',
+  name: 'about',
   
 }
 </script>
 <style lang="less" scoped>
-#addUser {
+#about {
     margin-top: 50px;
 }
 </style>
