@@ -1,8 +1,9 @@
 <template>
   <div id="home">
     <div class="container">
+      <div class="alert alert-warning" role="alert" v-show="alerShow">{{addname}}信息{{text}}成功！</div>
       <h1>用户管理系统</h1>
-      <input type="text" class="form-control search" placeholder="搜索">
+      <input type="text" class="form-control search" placeholder="搜索" v-model='searchContent'>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -13,12 +14,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, i) in this.users" :key="i">
-            <td>{{item.name}}</td>
+          <tr v-for="(item, i) in search(users, searchContent)" :key="i">
+            <td>{{item.uname}}</td>
             <td>{{item.phone}}</td>
             <td>{{item.email}}</td>
             <td>
-              <router-link class="btn btn-default" to="/detail">详情</router-link>
+              <router-link class="btn btn-default" :to="{path: '/detail', query: {user: item, id: item.id}}">详情</router-link>
             </td>
           </tr>
         </tbody>
@@ -32,7 +33,11 @@ export default {
   name: 'home',
   data() {
     return {
-      users: []
+      alerShow: false,
+      addname: "",
+      text: '',
+      users: [],
+      searchContent: ''
     }
   },
   methods: {
@@ -40,16 +45,36 @@ export default {
       this.$http.get('http://localhost:3000/users').then(function (result) {
         this.users = result.body;
       })
+    },
+    search (users, content) {
+      if (!content) {
+        return users;
+      } else {
+        return users.filter((user) => {
+          return user.uname.indexOf(content) != -1 ? true : false;
+        })
+      }
     }
   },
   created () {
     this.getUsers();
+    if (this.$route.query.alert) {
+      this.addname = this.$route.query.alert;
+      this.text = this.$route.query.text;
+      this.alerShow = true;
+      setTimeout(() => {
+        this.alerShow = false;
+      }, 2000)
+    }
   }
+    
 }
 </script>
 <style lang="less" scoped>
 #home {
-  margin-top: 100px;
+  .alert {
+    margin-top: 20px;
+  }
   .search {
     margin: 20px 0;
   }
